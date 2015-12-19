@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ReadableDBModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;E:\Documents\Visual Studio 2015\Projects\Readable\ReadableDB&quot;;default timeout=0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="author">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="books">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AuthorId" Type="uniqueidentifier" />
+    <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="2147483647" />
+    <Property Name="Pages" Type="integer" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="Owned" Type="varchar" MaxLength="50" />
+    <Property Name="FrontImage" Type="blob" />
+    <Property Name="Cover" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="ReadableDBModelStoreContainer">
+    <EntitySet Name="author" EntityType="Self.author" store:Type="Tables" />
+    <EntitySet Name="books" EntityType="Self.books" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

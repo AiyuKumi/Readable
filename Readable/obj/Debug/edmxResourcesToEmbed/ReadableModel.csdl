@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ReadableDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="author">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="books" Relationship="ReadableDBModel.authorbooks" FromRole="author" ToRole="books" />
+  </EntityType>
+  <EntityType Name="books">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+    <Property Name="Pages" Type="Int64" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Owned" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FrontImage" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+    <Property Name="Cover" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AuthorId" Type="Guid" />
+    <NavigationProperty Name="author" Relationship="ReadableDBModel.authorbooks" FromRole="books" ToRole="author" />
+  </EntityType>
+  <EntityContainer Name="ReadableDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="author" EntityType="Self.author" />
+    <EntitySet Name="books" EntityType="Self.books" />
+    <AssociationSet Name="authorbooks" Association="ReadableDBModel.authorbooks">
+      <End Role="author" EntitySet="author" />
+      <End Role="books" EntitySet="books" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="authorbooks">
+    <End Type="ReadableDBModel.author" Role="author" Multiplicity="1" />
+    <End Type="ReadableDBModel.books" Role="books" Multiplicity="*" />
+  </Association>
+</Schema>
