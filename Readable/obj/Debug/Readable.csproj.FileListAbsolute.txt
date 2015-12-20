@@ -17,3 +17,6 @@ E:\Documents\Visual Studio 2015\Projects\Readable\Readable\obj\Debug\Readable.ex
 E:\Documents\Visual Studio 2015\Projects\Readable\Readable\obj\Debug\Readable.pdb
 E:\Documents\Visual Studio 2015\Projects\Readable\Readable\obj\Debug\Readable.csprojResolveAssemblyReference.cache
 E:\Documents\Visual Studio 2015\Projects\Readable\Readable\obj\Debug\Readable_Content.g.cs
+C:\Users\Shari\Documents\GitHub\Readable\Readable\bin\Debug\Readable.exe.config
+C:\Users\Shari\Documents\GitHub\Readable\Readable\obj\Debug\Readable.exe
+C:\Users\Shari\Documents\GitHub\Readable\Readable\obj\Debug\Readable.pdb
