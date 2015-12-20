@@ -7,6 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="486.8" Width="879.86">
     <Grid>
-
+        <Button Content="Nieuw boek" HorizontalAlignment="Left" Margin="774,27,0,0" VerticalAlignment="Top" Width="75"/>
+        <ListView Name="MainListView" HorizontalAlignment="Left" Height="234" Margin="10,10,0,0" VerticalAlignment="Top" Width="270">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
