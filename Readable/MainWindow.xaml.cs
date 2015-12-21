@@ -31,7 +31,8 @@ namespace Readable
         public MainWindow()
         {
             InitializeComponent();
-            LoadData();
+            LoadDataListView();
+            Radiobuttons();
 
            // string cmdstring = @"CREATE TABLE books (Id INTEGER NOT NULL, Title TEXT, Description TEXT, Pages INTEGER, PRIMARY KEY (Id))";
            // string cmdstring = @"INSERT INTO books (Title, Description, Pages) VALUES ('Test book', 'Description test', 200);";
@@ -44,14 +45,14 @@ namespace Readable
             sql_con = new SQLiteConnection("Data Source=ReadableDB.s3db;Version=3;New=True;");
         }
 
-        void LoadData()
+        private void LoadDataListView()
         {
             try
             {
                 SetConnection();
                 sql_con.Open();
                 sql_cmd = sql_con.CreateCommand();
-                string CommandText = "SELECT Title FROM books";
+                string CommandText = "SELECT b.Title, a.Name FROM books b LEFT JOIN author a ON b.authorId=a.Id"; //WHERE b.authorId = a.Id"     
                 DB = new SQLiteDataAdapter(CommandText, sql_con);
                 DS.Reset();
                 DB.Fill(DS);
@@ -63,14 +64,131 @@ namespace Readable
                 {
                     DataRow drow = DT.Rows[i];
                     ListViewItem lvi = new ListViewItem { Content = drow.ToString() };
-                    MainListView.Items.Add(new ListViewItem { Content = drow["Title"].ToString() });
+                    MainListView.Items.Add(new ListViewItem { Content = drow["Title"].ToString() + " - " + drow["Name"].ToString() });
                 }
                 sql_con.Close();
             }catch(Exception ex)
             {
                 System.Windows.MessageBox.Show(ex.ToString());
             }
+        }
 
+        private void Radiobuttons()
+        {
+            try
+            {
+                SetConnection();
+                sql_con.Open();
+                sql_cmd = sql_con.CreateCommand();
+                sql_cmd.CommandText = "SELECT count(State) FROM books WHERE State = 'Gelezen'";
+                sql_cmd.ExecuteNonQuery();
+                Int32 countRead = Convert.ToInt32(sql_cmd.ExecuteScalar());
+
+                sql_cmd.CommandText = "SELECT count(State) FROM books WHERE State = 'Niet gelezen'";
+                sql_cmd.ExecuteNonQuery();
+                Int32 countNotRead = Convert.ToInt32(sql_cmd.ExecuteScalar());
+
+                sql_cmd.CommandText = "SELECT count(Id) FROM books";
+                sql_cmd.ExecuteNonQuery();
+                Int32 countAll = Convert.ToInt32(sql_cmd.ExecuteScalar());
+
+                RadioButtonAll.Content = "Alles (" + countAll + ")";
+                RadioButtonRead.Content = "Gelezen (" + countRead + ")";
+                RadioButtonNotRead.Content = "Niet gelezen (" + countNotRead + ")";
+
+                sql_con.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void RadioButtonAll_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SetConnection();
+                sql_con.Open();
+                sql_cmd = sql_con.CreateCommand();
+                string CommandText = "SELECT b.Title, a.Name FROM books b LEFT JOIN author a ON b.authorId=a.Id"; //WHERE b.authorId = a.Id"     
+                DB = new SQLiteDataAdapter(CommandText, sql_con);
+                DS.Reset();
+                DB.Fill(DS);
+                DT = DS.Tables[0];
+
+                DataTable dtable = new DataTable();
+                MainListView.Items.Clear();
+                for (int i = 0; i < DT.Rows.Count; i++)
+                {
+                    DataRow drow = DT.Rows[i];
+                    ListViewItem lvi = new ListViewItem { Content = drow.ToString() };
+                    MainListView.Items.Add(new ListViewItem { Content = drow["Title"].ToString() + " - " + drow["Name"].ToString() });
+                }
+                sql_con.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void RadioButtonRead_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SetConnection();
+                sql_con.Open();
+                sql_cmd = sql_con.CreateCommand();
+                string CommandText = "SELECT b.Title, a.Name FROM books b LEFT JOIN author a ON b.authorId=a.Id WHERE State = 'Gelezen' ";     
+                DB = new SQLiteDataAdapter(CommandText, sql_con);
+                DS.Reset();
+                DB.Fill(DS);
+                DT = DS.Tables[0];
+
+                DataTable dtable = new DataTable();
+                MainListView.Items.Clear();
+                for (int i = 0; i < DT.Rows.Count; i++)
+                {
+                    DataRow drow = DT.Rows[i];
+                    ListViewItem lvi = new ListViewItem { Content = drow.ToString() };
+                    MainListView.Items.Add(new ListViewItem { Content = drow["Title"].ToString() + " - " + drow["Name"].ToString() });
+                }
+                sql_con.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void RadioButtonNotRead_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SetConnection();
+                sql_con.Open();
+                sql_cmd = sql_con.CreateCommand();
+                string CommandText = "SELECT b.Title, a.Name FROM books b LEFT JOIN author a ON b.authorId=a.Id WHERE State = 'Niet gelezen' ";
+                DB = new SQLiteDataAdapter(CommandText, sql_con);
+                DS.Reset();
+                DB.Fill(DS);
+                DT = DS.Tables[0];
+
+                DataTable dtable = new DataTable();
+                MainListView.Items.Clear();
+                for (int i = 0; i < DT.Rows.Count; i++)
+                {
+                    DataRow drow = DT.Rows[i];
+                    ListViewItem lvi = new ListViewItem { Content = drow.ToString() };
+                    MainListView.Items.Add(new ListViewItem { Content = drow["Title"].ToString() + " - " + drow["Name"].ToString() });
+                }
+                sql_con.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.ToString());
+            }
         }
 
         //private void ExecuteQuery(string txtQuery)
