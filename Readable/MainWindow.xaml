@@ -20,7 +20,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <RadioButton x:Name="RadioButtonAll" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" GroupName="AllReadNotRead" IsChecked="True" Checked="RadioButtonAll_Checked"/>
+        <RadioButton x:Name="RadioButtonAll" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" GroupName="AllReadNotRead" Checked="RadioButtonAll_Checked"/>
         <RadioButton x:Name="RadioButtonRead" HorizontalAlignment="Left" Margin="100,89,0,0" VerticalAlignment="Top" GroupName="AllReadNotRead" Checked="RadioButtonRead_Checked"/>
         <RadioButton x:Name="RadioButtonNotRead" HorizontalAlignment="Left" Margin="195,89,0,0" VerticalAlignment="Top" GroupName="AllReadNotRead" Checked="RadioButtonNotRead_Checked"/>
     </Grid>

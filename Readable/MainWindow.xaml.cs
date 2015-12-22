@@ -52,7 +52,7 @@ namespace Readable
                 SetConnection();
                 sql_con.Open();
                 sql_cmd = sql_con.CreateCommand();
-                string CommandText = "SELECT b.Title, a.Name FROM books b LEFT JOIN author a ON b.authorId=a.Id"; //WHERE b.authorId = a.Id"     
+                string CommandText = "SELECT b.Title,b.State, a.Name FROM books b LEFT JOIN author a ON b.authorId=a.Id"; //WHERE b.authorId = a.Id"     
                 DB = new SQLiteDataAdapter(CommandText, sql_con);
                 DS.Reset();
                 DB.Fill(DS);
@@ -106,88 +106,40 @@ namespace Readable
 
         private void RadioButtonAll_Checked(object sender, RoutedEventArgs e)
         {
-            try
+            string filterExp = "State = 'Gelezen' OR State = 'Niet gelezen' OR State IS NULL OR State = ''";
+            string sortExp = "Title";
+            DataRow[] drarray;
+            drarray = DT.Select(filterExp, sortExp, DataViewRowState.CurrentRows);
+            MainListView.Items.Clear();
+            for (int i = 0; i < drarray.Length; i++)
             {
-                SetConnection();
-                sql_con.Open();
-                sql_cmd = sql_con.CreateCommand();
-                string CommandText = "SELECT b.Title, a.Name FROM books b LEFT JOIN author a ON b.authorId=a.Id"; //WHERE b.authorId = a.Id"     
-                DB = new SQLiteDataAdapter(CommandText, sql_con);
-                DS.Reset();
-                DB.Fill(DS);
-                DT = DS.Tables[0];
-
-                DataTable dtable = new DataTable();
-                MainListView.Items.Clear();
-                for (int i = 0; i < DT.Rows.Count; i++)
-                {
-                    DataRow drow = DT.Rows[i];
-                    ListViewItem lvi = new ListViewItem { Content = drow.ToString() };
-                    MainListView.Items.Add(new ListViewItem { Content = drow["Title"].ToString() + " - " + drow["Name"].ToString() });
-                }
-                sql_con.Close();
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.ToString());
+                MainListView.Items.Add(drarray[i]["Title"].ToString() + " - " + drarray[i]["Name"].ToString());
             }
         }
 
         private void RadioButtonRead_Checked(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                SetConnection();
-                sql_con.Open();
-                sql_cmd = sql_con.CreateCommand();
-                string CommandText = "SELECT b.Title, a.Name FROM books b LEFT JOIN author a ON b.authorId=a.Id WHERE State = 'Gelezen' ";     
-                DB = new SQLiteDataAdapter(CommandText, sql_con);
-                DS.Reset();
-                DB.Fill(DS);
-                DT = DS.Tables[0];
-
-                DataTable dtable = new DataTable();
-                MainListView.Items.Clear();
-                for (int i = 0; i < DT.Rows.Count; i++)
-                {
-                    DataRow drow = DT.Rows[i];
-                    ListViewItem lvi = new ListViewItem { Content = drow.ToString() };
-                    MainListView.Items.Add(new ListViewItem { Content = drow["Title"].ToString() + " - " + drow["Name"].ToString() });
-                }
-                sql_con.Close();
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.ToString());
+            string filterExp = "State = 'Gelezen'";
+            string sortExp = "Title";
+            DataRow[] drarray;
+            drarray = DT.Select(filterExp, sortExp, DataViewRowState.CurrentRows);
+            MainListView.Items.Clear();
+            for (int i = 0; i < drarray.Length; i++)
+            {              
+                MainListView.Items.Add(drarray[i]["Title"].ToString() + " - " + drarray[i]["Name"].ToString());
             }
         }
 
         private void RadioButtonNotRead_Checked(object sender, RoutedEventArgs e)
         {
-            try
+            string filterExp = "State = 'Niet gelezen'";
+            string sortExp = "Title";
+            DataRow[] drarray;
+            drarray = DT.Select(filterExp, sortExp, DataViewRowState.CurrentRows);
+            MainListView.Items.Clear();
+            for (int i = 0; i < drarray.Length; i++)
             {
-                SetConnection();
-                sql_con.Open();
-                sql_cmd = sql_con.CreateCommand();
-                string CommandText = "SELECT b.Title, a.Name FROM books b LEFT JOIN author a ON b.authorId=a.Id WHERE State = 'Niet gelezen' ";
-                DB = new SQLiteDataAdapter(CommandText, sql_con);
-                DS.Reset();
-                DB.Fill(DS);
-                DT = DS.Tables[0];
-
-                DataTable dtable = new DataTable();
-                MainListView.Items.Clear();
-                for (int i = 0; i < DT.Rows.Count; i++)
-                {
-                    DataRow drow = DT.Rows[i];
-                    ListViewItem lvi = new ListViewItem { Content = drow.ToString() };
-                    MainListView.Items.Add(new ListViewItem { Content = drow["Title"].ToString() + " - " + drow["Name"].ToString() });
-                }
-                sql_con.Close();
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.ToString());
+                MainListView.Items.Add(drarray[i]["Title"].ToString() + " - " + drarray[i]["Name"].ToString());
             }
         }
 
