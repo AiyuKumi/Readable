@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="486.8" Width="879.86">
     <Grid>
-        <Button Content="Nieuw boek" HorizontalAlignment="Left" Margin="774,27,0,0" VerticalAlignment="Top" Width="75"/>
-        <ListView Name="MainListView" HorizontalAlignment="Left" Height="337" Margin="10,109,0,0" VerticalAlignment="Top" Width="439">
+        <Button Content="Nieuw boek" HorizontalAlignment="Left" Margin="755,24,0,0" VerticalAlignment="Top" Width="75"/>
+        <ListView Name="MainListView" HorizontalAlignment="Left" Height="376" Margin="223,70,0,0" VerticalAlignment="Top" Width="465">
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="Visibility" Value="Collapsed" />
@@ -20,8 +20,27 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <RadioButton x:Name="RadioButtonAll" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" GroupName="AllReadNotRead" Checked="RadioButtonAll_Checked"/>
-        <RadioButton x:Name="RadioButtonRead" HorizontalAlignment="Left" Margin="100,89,0,0" VerticalAlignment="Top" GroupName="AllReadNotRead" Checked="RadioButtonRead_Checked"/>
-        <RadioButton x:Name="RadioButtonNotRead" HorizontalAlignment="Left" Margin="195,89,0,0" VerticalAlignment="Top" GroupName="AllReadNotRead" Checked="RadioButtonNotRead_Checked"/>
+        <RadioButton x:Name="RadioButtonAll" HorizontalAlignment="Left" Margin="243,47,0,0" VerticalAlignment="Top" GroupName="AllReadNotRead" Checked="RadioButtonAll_Checked"/>
+        <RadioButton x:Name="RadioButtonRead" HorizontalAlignment="Left" Margin="384,47,0,0" VerticalAlignment="Top" GroupName="AllReadNotRead" Checked="RadioButtonRead_Checked"/>
+        <RadioButton x:Name="RadioButtonNotRead" HorizontalAlignment="Left" Margin="523,47,0,0" VerticalAlignment="Top" GroupName="AllReadNotRead" Checked="RadioButtonNotRead_Checked" RenderTransformOrigin="0.467,0.5"/>
+        <ListView x:Name="GenreListView" HorizontalAlignment="Left" Height="376" Margin="10,70,0,0" VerticalAlignment="Top" Width="167" SelectionChanged="GenreListView_SelectionChanged">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <RadioButton x:Name="RadioButtonAllOwned" HorizontalAlignment="Left" Margin="243,28,0,0" VerticalAlignment="Top" GroupName="AllOwnedNotOwned" Checked="RadioButtonAllOwned_Checked"/>
+        <RadioButton x:Name="RadioButtonOwned" HorizontalAlignment="Left" Margin="384,28,0,0" VerticalAlignment="Top" GroupName="AllOwnedNotOwned" Checked="RadioButtonOwned_Checked"/>
+        <RadioButton x:Name="RadioButtonNotOwned" HorizontalAlignment="Left" Margin="523,28,0,0" VerticalAlignment="Top" GroupName="AllOwnedNotOwned" Checked="RadioButtonNotOwned_Checked" RenderTransformOrigin="0.467,0.5"/>
+        <ComboBox x:Name="ComboGenreList" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top" Width="167" IsReadOnly="True" SelectionChanged="ComboGenreList_SelectionChanged" SelectedIndex="0">
+            <ComboBoxItem Name="Genre">Genre</ComboBoxItem>
+            <ComboBoxItem Name="Language">Taal</ComboBoxItem>
+        </ComboBox>
     </Grid>
 </Window>
